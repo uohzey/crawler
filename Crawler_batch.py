@@ -15,7 +15,7 @@ noaa_url_xpath = noaa_etree_element.xpath('//*/table/tr/td/a')
 #     print(i.xpath('@href'))
     
 for noaa in noaa_url_xpath[2:]:
-    file = noaa.xpath('@href')[0]
+    file = noaa.xpath('@href')[0].split('/')[0]
     noaa_nc_url = noaa_url + noaa.xpath('@href')[0]
     #     print(noaa_nc_url)
     # 定义请求头部信息
@@ -43,11 +43,11 @@ for noaa in noaa_url_xpath[2:]:
                 os.mkdir(file)
             except:
                 print('创建文件夹失败')
-        # 如果在目录tar_gz下已经有文件了则不重复下载,否则下载
+        # 如果在目录file下已经有文件了则不重复下载,否则下载
         if file_name in [x for x in os.listdir(file)]:
             print('%s文件已下载'%(file_name))
         else:
-            # 通过拼接的下载url下载文件,下载文件存储在目录下
-            with open(f'file/{file_name}', "wb") as code:
+            # 通过拼接的下载url下载文件,下载文件存储在file目录下
+            with open(f'{file}/{file_name}', "wb") as code:
                 code.write(r.content)
                 print('下载文件%s成功'%(file_name))

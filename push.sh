@@ -7,7 +7,7 @@ case $input in
     [yY][eE][sS]|[yY])
         echo "继续提交"
         git add -A
-        git commit -m $1
+        git commit -m "脚本提交"
         git push origin master
                     exit 1
         ;;
